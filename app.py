@@ -62,7 +62,7 @@ def handle_message(event):
 
   except KeyError:
     #if it doesn't be registered in dictionary, register it again.
-    worksheets[profile.user_id] = RemoteControlGoogleSpreadSheet(profile.display_name)
+    worksheets[profile.user_id] = ControllGoogleSpreadsheet(profile.display_name)
     worksheet = worksheets[profile.user_id]
 
 
