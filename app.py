@@ -77,40 +77,40 @@ def handle_message(event):
 
   #when user send message include the text '完了', move the list to raw Done.
   #if it doesn't exist, send message to user.
-  if text[:2] == "完了" :
-    is_there_cell = worksheet.from_Todo_to_Done(text)
+  # if text[:2] == "完了" :
+  #   is_there_cell = worksheet.from_Todo_to_Done(text)
 
-    if is_there_cell == True:
-      line_bot_api.reply_message(
-      event.reply_token,
-      TextSendMessage(text = text[2:] + "\nをリストから削除しました"))
-    else :
-      line_bot_api.reply_message(
-      event.reply_token,
-      TextSendMessage(text = text[2:] + "\nはリストに存在しません"))
-
-
-  #if user send '買うもの', return all lists
-  if text == "買うもの" :
-    respons = worksheet.get_Todo()
-
-    line_bot_api.reply_message(
-    event.reply_token,
-    TextSendMessage(text = "買うもの\n・" + respons))
+  #   if is_there_cell == True:
+  #     line_bot_api.reply_message(
+  #     event.reply_token,
+  #     TextSendMessage(text = text[2:] + "\nをリストから削除しました"))
+  #   else :
+  #     line_bot_api.reply_message(
+  #     event.reply_token,
+  #     TextSendMessage(text = text[2:] + "\nはリストに存在しません"))
 
 
-  #if user send 'クリア', reset worksheet.
-  if text == "クリア" :
-    worksheet.clear_worksheet()
-    line_bot_api.reply_message(
-    event.reply_token,
-    TextSendMessage(text = "リストをクリアしました"))
+  # #if user send '買うもの', return all lists
+  # if text == "買うもの" :
+  #   respons = worksheet.get_Todo()
+
+  #   line_bot_api.reply_message(
+  #   event.reply_token,
+  #   TextSendMessage(text = "買うもの\n・" + respons))
 
 
-  #if user send '削除', remove worksheet
-  if text == "削除" :
-    worksheet.delete_worksheet()
-    del worksheets[profile.user_id]
-    line_bot_api.reply_message(
-    event.reply_token,
-    TextSendMessage(text = "リストを削除しました"))
+  # #if user send 'クリア', reset worksheet.
+  # if text == "クリア" :
+  #   worksheet.clear_worksheet()
+  #   line_bot_api.reply_message(
+  #   event.reply_token,
+  #   TextSendMessage(text = "リストをクリアしました"))
+
+
+  # #if user send '削除', remove worksheet
+  # if text == "削除" :
+  #   worksheet.delete_worksheet()
+  #   del worksheets[profile.user_id]
+  #   line_bot_api.reply_message(
+  #   event.reply_token,
+  #   TextSendMessage(text = "リストを削除しました"))
