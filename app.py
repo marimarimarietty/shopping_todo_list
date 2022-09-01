@@ -9,7 +9,7 @@ from linebot.exceptions import (
 from linebot.models import (
     MessageEvent, TextMessage, ImageMessage, TextSendMessage, FollowEvent, SourceGroup, SourceRoom
 )
-from re_con_gspread import RemoteControlGoogleSpreadSheet
+# from re_con_gspread import RemoteControlGoogleSpreadSheet
 
 import os
 from dotenv import load_dotenv
