@@ -7,14 +7,14 @@ class ControllGoogleSpreadsheet:
     credentials = ServiceAccountCredentials.from_json_keyfile_name('my-shopping-project-361202-650ebef29f5a.json', scope)
     global gc
     gc = gspread.authorize(credentials)
-    wks = gc.open("MyShoppingList").sheet1 #specify the sheet
+    gc = gc.open("MyShoppingList")#specify the sheet
 
     try :
         #make new sheet and store object
-        worksheet = wks.add_worksheet(title=title, rows="100", cols="2")
+        worksheet = gc.add_worksheet(title=title, rows="100", cols="2")
     except :
         #if the sheet already exists, store object
-        worksheet = wks.worksheet(title)
+        worksheet = gc.worksheet(title)
 
     self.worksheet = worksheet #store worksheet
     self.Todo = 1
@@ -69,4 +69,4 @@ class ControllGoogleSpreadsheet:
 
   #delete worksheet
   def delete_worksheet(self):
-    wks.del_worksheet(self.worksheet)
+    gc.del_worksheet(self.worksheet)
