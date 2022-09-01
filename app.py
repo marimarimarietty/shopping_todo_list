@@ -72,7 +72,7 @@ def handle_message(event):
 
     line_bot_api.reply_message(
       event.reply_token,
-      TextSendMessage(text = text[2:] + "\nをリストに追加しました"))
+      TextSendMessage(text = text[2:] + "をリストに追加しました"))
 
 
   #when user send message include the text '完了', move the list to raw Done.
@@ -83,11 +83,11 @@ def handle_message(event):
     if is_there_cell == True:
       line_bot_api.reply_message(
       event.reply_token,
-      TextSendMessage(text = text[2:] + "\nをリストから削除しました"))
+      TextSendMessage(text = text[2:] + "をリストから削除しました"))
     else :
       line_bot_api.reply_message(
       event.reply_token,
-      TextSendMessage(text = text[2:] + "\nはリストに存在しません"))
+      TextSendMessage(text = text[2:] + "はリストに存在しません"))
 
 
   #if user send '買うもの', return all lists
@@ -114,3 +114,25 @@ def handle_message(event):
     line_bot_api.reply_message(
     event.reply_token,
     TextSendMessage(text = "リストを削除しました"))
+
+#フォローイベント時の処理
+@handler.add(FollowEvent)
+def handle_follow(event):
+  profile = line_bot_api.get_profile(event.source.user_id)
+
+  #友だち登録時に,新しいWorksheetのインスタンスを生成し、辞書に格納
+  worksheets[profile.user_id] = ControllGoogleSpreadsheet(profile.display_name)
+
+
+  #友達追加したユーザにメッセージを送信
+  line_bot_api.reply_message(
+    event.reply_token,
+    TextSendMessage(text="友達追加ありがとうございます\n\n" + separator + "\n買い物リストに追加したいときは\n\n追加{追加したい項目}\
+    \n\nのように入力してください\nex) 追加しいたけ\n" + separator + "\n買い物リストを確認したいときは\n\n買うもの\n\nと入力してください\n"\
+    + separator + "\n買い物リストから削除したいときは\n\n完了{削除したい項目}\n\nと入力してください\n"\
+    "ex) 完了しいたけ" + separator + "\n買い物リストをクリアしたいときは\n\nクリア\n\nと入力してください" + separator))
+
+
+if __name__ == "__main__":
+    app.debug = True
+    app.run()
