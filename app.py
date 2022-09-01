@@ -76,7 +76,7 @@ def handle_message(event):
 
 
   #when user send message include the text '完了', move the list to raw Done.
-  if it doesn't exist, send message to user.
+  # if it doesn't exist, send message to user.
   if text[:2] == "完了" :
     is_there_cell = worksheet.from_Todo_to_Done(text)
 
