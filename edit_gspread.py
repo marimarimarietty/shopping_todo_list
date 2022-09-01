@@ -35,9 +35,9 @@ def callback():
   try:
       handler.handle(body, signature)
   except InvalidSignatureError:
-      abort(400)
+    print("Invalid signature. Please check your channel access token/channel secret.")
+    abort(400)
 
-  return 'OK'
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
