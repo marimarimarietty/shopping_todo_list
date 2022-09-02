@@ -27,11 +27,6 @@ class ControllGoogleSpreadsheet:
     gc = gspread.authorize(credentials)
     gc = gc.open("MyShoppingList")
 
-    wks = gc.open('MyShoppingList').sheet1
-
-    wks.update_acell('A2', 'Hello World!')
-    print(wks.acell('A2'))
-
     try :
         #make new sheet and store object
         worksheet = gc.add_worksheet(title=title, rows="100", cols="2")
