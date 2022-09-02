@@ -1,10 +1,28 @@
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
 class ControllGoogleSpreadsheet:
   def __init__(self, title):
     scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
-    credentials = ServiceAccountCredentials.from_json_keyfile_name('/my-shopping-project-361202-650ebef29f5a.json', scope)
+    credential = {
+      "type": "service_account",
+      "project_id": os.environ['SHEET_PROJECT_ID'],
+      "private_key_id": os.environ['SHEET_PRIVATE_KEY_ID'],
+      "private_key": os.environ['SHEET_PRIVATE_KEY'],
+      "client_email": os.environ['SHEET_CLIENT_EMAIL'],
+      "client_id": os.environ['SHEET_CLIENT_ID'],
+      "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+      "token_uri": "https://oauth2.googleapis.com/token",
+      "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+      "client_x509_cert_url":  os.environ['SHEET_CLIENT_X509_CERT_URL']
+    }
+
+    credentials = ServiceAccountCredentials.from_json_keyfile_dict(credential, scope)
+    # credentials = ServiceAccountCredentials.from_json_keyfile_name('/my-shopping-project-361202-650ebef29f5a.json', scope)
     global gc
     gc = gspread.authorize(credentials)
     gc = gc.open("MyShoppingList")
