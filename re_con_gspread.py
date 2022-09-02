@@ -4,10 +4,15 @@ from oauth2client.service_account import ServiceAccountCredentials
 class ControllGoogleSpreadsheet:
   def __init__(self, title):
     scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive']
-    credentials = ServiceAccountCredentials.from_json_keyfile_name('my-shopping-project-361202-650ebef29f5a.json', scope)
+    credentials = ServiceAccountCredentials.from_json_keyfile_name('/my-shopping-project-361202-650ebef29f5a.json', scope)
     global gc
     gc = gspread.authorize(credentials)
-    gc = gc.open("MyShoppingList")#specify the sheet
+    gc = gc.open("MyShoppingList")
+
+    wks = gc.open('MyShoppingList').sheet1
+
+    wks.update_acell('A2', 'Hello World!')
+    print(wks.acell('A2'))
 
     try :
         #make new sheet and store object
